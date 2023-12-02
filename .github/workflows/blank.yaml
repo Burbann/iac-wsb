@@ -42,6 +42,7 @@ jobs:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
   lint:
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -66,12 +67,8 @@ jobs:
       with:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv   
-    
-    
     - name: Start  test
       run: poetry run task test
-    
-    
     - name: Start  lint
       run: poetry run task lint
     - name: Start  formatter

@@ -21,6 +21,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -36,9 +37,6 @@ jobs:
           installer-parallel: true
     - name: Install dependencies
       run: poetry install --no-interaction --no-root
-    - name: Add PATH for Poetry
-      if: strategy.matrix.os == 'windows-latest'
-      run: export PATH=$PATH:$HOME/.local/bin
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3

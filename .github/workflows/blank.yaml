@@ -36,8 +36,9 @@ jobs:
           installer-parallel: true
     - name: Install dependencies
       run: poetry install --no-interaction --no-root
-      if: strategy.matrix.os == "windows-latest":
-        run: export PATH=$PATH:$HOME/.local/bin
+    - name: Add PATH for Poetry
+      if: ${{ strategy.matrix.os, 'windows-latest') }}
+      run: export PATH=$PATH:$HOME/.local/bin
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3

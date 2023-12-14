@@ -17,11 +17,10 @@ jobs:
     strategy:
       matrix:
         os: [ "ubuntu-latest", "windows-latest" ]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./example-app
-        shell: bash
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -36,7 +35,8 @@ jobs:
           virtualenvs-in-project: false
           installer-parallel: true
     - name: Install dependencies
-      run: poetry install --no-interaction --no-root
+      run: |
+        poetry install --no-interaction --no-root
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
@@ -48,7 +48,7 @@ jobs:
       matrix:
         os: [ "ubuntu-latest", "windows-latest" ]
     needs: build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./example-app
